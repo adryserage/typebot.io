@@ -47,13 +47,13 @@ services:
     <<: *typebot-common
     image: baptistearno/typebot-builder:latest
     ports:
-      - "8080:3000"
+      - "3000"
 
   typebot-viewer:
     <<: *typebot-common
     image: baptistearno/typebot-viewer:latest
     ports:
-      - "8081:3000"
+      - "3000"
 
 networks:
   typebot-network:
