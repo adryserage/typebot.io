@@ -8,7 +8,7 @@
     "./schemas": "./src/schemas.ts"
   },
   "dependencies": {
-    "@ai-sdk/google": "^1.0.0",
+    "@ai-sdk/google": "^1.2.22",
     "@typebot.io/ai": "workspace:*",
     "@typebot.io/forge": "workspace:*",
     "@typebot.io/lib": "workspace:*",
