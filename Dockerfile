@@ -128,7 +128,7 @@ COPY --from=pruned /app/out/full/ .
 COPY bun.lock .
 COPY bunfig.toml .
 RUN SENTRYCLI_SKIP_DOWNLOAD=1 bun install
-RUN bunx turbo build --filter="${SCOPE}"
+RUN bunx turbo build --filter="${SCOPE}" 2>&1 | tee /tmp/build.log || (echo "=== Build failed, showing last 100 lines ===" && tail -100 /tmp/build.log && exit 1)
 
 # ================== RELEASE ======================
 
