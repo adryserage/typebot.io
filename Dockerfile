@@ -73,7 +73,9 @@ RUN groupadd bun \
     && which bun \
     && which bunx \
     && bun --version
-RUN apt-get -qy update && apt-get -qy --no-install-recommends install openssl git python3 g++ build-essential
+RUN apt-get -qy update && \
+    (apt-get -qy --no-install-recommends install openssl git python3 g++ build-essential || \
+     (sleep 5 && apt-get -qy update && apt-get -qy --no-install-recommends install openssl git python3 g++ build-essential))
 WORKDIR /app
 
 # ================= TURBO PRUNE ===================
