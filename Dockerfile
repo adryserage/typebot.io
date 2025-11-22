@@ -88,11 +88,14 @@ RUN bunx turbo prune "${SCOPE}" --docker
 FROM base AS builder
 ARG BUN_PKG_MANAGER
 ARG SCOPE
+ARG DATABASE_URL=postgresql://postgres:typebot@typebot-db:5432/typebot
+ENV DATABASE_URL=${DATABASE_URL}
+ENV SKIP_ENV_CHECK=true
 COPY --from=pruned /app/out/full/ .
 COPY bun.lock .
 COPY bunfig.toml .
 RUN SENTRYCLI_SKIP_DOWNLOAD=1 bun install
-RUN SKIP_ENV_CHECK=true bunx turbo build --filter="${SCOPE}"
+RUN bunx turbo build --filter="${SCOPE}"
 
 # ================== RELEASE ======================
 
