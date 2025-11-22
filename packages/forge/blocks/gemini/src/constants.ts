@@ -5,7 +5,7 @@ export const geminiModels = [
   "gemini-1.5-pro",
   "gemini-1.5-flash",
   "gemini-pro",
-] as const;
+];
 
 export const defaultGeminiMaxTokens = 1024;
 
