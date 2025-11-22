@@ -1,15 +1,20 @@
 export const geminiModels = [
+  "gemini-3-pro-preview",
+  "gemini-2.5-pro",
+  "gemini-2.5-flash",
+  "gemini-2.5-flash-lite",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite",
   "gemini-2.0-flash-exp",
-  "gemini-1.5-pro-latest",
-  "gemini-1.5-flash-latest",
-  "gemini-1.5-pro",
-  "gemini-1.5-flash",
-  "gemini-pro",
 ];
 
 export const defaultGeminiMaxTokens = 1024;
 
-export const modelsWithImageUrlSupport = ["gemini-1.5*", "gemini-2.0*"];
+export const modelsWithImageUrlSupport = [
+  "gemini-3-pro*",
+  "gemini-2.5*",
+  "gemini-2.0*",
+];
 
 export const supportedImageTypes = [
   "image/png",
@@ -19,4 +24,3 @@ export const supportedImageTypes = [
 ] as const;
 
 export const maxToolRoundtrips = 10;
-
