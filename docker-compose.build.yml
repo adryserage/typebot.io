@@ -1,5 +1,5 @@
 services:
-  typebot-db-docker:
+  typebot-db:
     image: postgres:16
     restart: always
     volumes:
@@ -12,29 +12,43 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+  typebot-redis:
+    image: redis:alpine
+    restart: always
+    command: --save 60 1 --loglevel warning
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 3s
+    volumes:
+      - ${PWD}/.typebot-build/redis:/data
   typebot-builder:
     build:
       context: .
       args:
         - SCOPE=builder
     depends_on:
-      typebot-db-docker:
+      typebot-db:
+        condition: service_healthy
+      typebot-redis:
         condition: service_healthy
     restart: always
     ports:
       - "3000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    env_file: .env.docker
   typebot-viewer:
     build:
       context: .
       args:
         - SCOPE=viewer
     depends_on:
-      typebot-db-docker:
+      typebot-db:
+        condition: service_healthy
+      typebot-redis:
         condition: service_healthy
     restart: always
     ports:
       - "3000"
-    env_file: .env.docker

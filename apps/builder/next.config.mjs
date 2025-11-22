@@ -61,6 +61,10 @@ const nextConfig = {
           module: /@opentelemetry/,
           message: /Critical dependency/,
         },
+        {
+          module: /@opentelemetry\/instrumentation-winston/,
+          message: /Can't resolve '@opentelemetry\/winston-transport'/,
+        },
       ];
       return config;
     }
