@@ -10,6 +10,7 @@ export const forgedBlockIds = [
   "mistral",
   "elevenlabs",
   "anthropic",
+  "gemini",
   "together-ai",
   "open-router",
   "nocodb",

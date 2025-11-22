@@ -11,6 +11,8 @@ import { difyAiBlock } from "@typebot.io/dify-ai-block";
 import { difyAiCredentialsSchema } from "@typebot.io/dify-ai-block/schemas";
 import { elevenlabsBlock } from "@typebot.io/elevenlabs-block";
 import { elevenlabsCredentialsSchema } from "@typebot.io/elevenlabs-block/schemas";
+import { geminiBlock } from "@typebot.io/gemini-block";
+import { geminiCredentialsSchema } from "@typebot.io/gemini-block/schemas";
 import { gmailBlock } from "@typebot.io/gmail-block";
 import { gmailCredentialsSchema } from "@typebot.io/gmail-block/schemas";
 import { groqBlock } from "@typebot.io/groq-block";
@@ -41,6 +43,7 @@ export const forgedCredentialsSchemas = {
   [mistralBlock.id]: mistralCredentialsSchema,
   [elevenlabsBlock.id]: elevenlabsCredentialsSchema,
   [anthropicBlock.id]: anthropicCredentialsSchema,
+  [geminiBlock.id]: geminiCredentialsSchema,
   [togetherAiBlock.id]: togetherAiCredentialsSchema,
   [openRouterBlock.id]: openRouterCredentialsSchema,
   [nocodbBlock.id]: nocodbCredentialsSchema,

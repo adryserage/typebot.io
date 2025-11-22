@@ -16,6 +16,7 @@
     "@typebot.io/mistral-block": "workspace:*",
     "@typebot.io/elevenlabs-block": "workspace:*",
     "@typebot.io/anthropic-block": "workspace:*",
+    "@typebot.io/gemini-block": "workspace:*",
     "@typebot.io/together-ai-block": "workspace:*",
     "@typebot.io/open-router-block": "workspace:*",
     "@typebot.io/nocodb-block": "workspace:*",

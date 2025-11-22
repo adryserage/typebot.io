@@ -13,6 +13,8 @@ import { difyAiBlock } from "@typebot.io/dify-ai-block";
 import { difyAiBlockSchema } from "@typebot.io/dify-ai-block/schemas";
 import { elevenlabsBlock } from "@typebot.io/elevenlabs-block";
 import { elevenlabsBlockSchema } from "@typebot.io/elevenlabs-block/schemas";
+import { geminiBlock } from "@typebot.io/gemini-block";
+import { geminiBlockSchema } from "@typebot.io/gemini-block/schemas";
 import { gmailBlock } from "@typebot.io/gmail-block";
 import { gmailBlockSchema } from "@typebot.io/gmail-block/schemas";
 import { groqBlock } from "@typebot.io/groq-block";
@@ -48,6 +50,7 @@ export const forgedBlockSchemas = {
   [mistralBlock.id]: mistralBlockSchema,
   [elevenlabsBlock.id]: elevenlabsBlockSchema,
   [anthropicBlock.id]: anthropicBlockSchema,
+  [geminiBlock.id]: geminiBlockSchema,
   [togetherAiBlock.id]: togetherAiBlockSchema,
   [openRouterBlock.id]: openRouterBlockSchema,
   [nocodbBlock.id]: nocodbBlockSchema,
@@ -70,6 +73,7 @@ export const forgedBlockSchema = z.discriminatedUnion("type", [
   mistralBlockSchema,
   elevenlabsBlockSchema,
   anthropicBlockSchema,
+  geminiBlockSchema,
   togetherAiBlockSchema,
   openRouterBlockSchema,
   nocodbBlockSchema,
