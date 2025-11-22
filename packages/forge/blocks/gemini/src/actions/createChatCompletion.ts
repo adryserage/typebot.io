@@ -1,4 +1,4 @@
-import { createGoogle } from "@ai-sdk/google";
+import { google } from "@ai-sdk/google";
 import { getChatCompletionStreamVarId } from "@typebot.io/ai/getChatCompletionStreamVarId";
 import { parseChatCompletionOptions } from "@typebot.io/ai/parseChatCompletionOptions";
 import { runChatCompletion } from "@typebot.io/ai/runChatCompletion";
@@ -83,9 +83,9 @@ export const createChatCompletion = createAction({
       if (!options.messages) return logs.add("No messages provided");
 
       await runChatCompletion({
-        model: createGoogle({
+        model: google(modelName, {
           apiKey,
-        }).chat(modelName),
+        }),
         variables,
         messages: options.messages,
         tools: options.tools,
@@ -123,9 +123,9 @@ export const createChatCompletion = createAction({
           };
 
         return runChatCompletionStream({
-          model: createGoogle({
+          model: google(modelName, {
             apiKey,
-          }).chat(modelName),
+          }),
           variables,
           messages: options.messages,
           isVisionEnabled: false,

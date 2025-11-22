@@ -1,4 +1,4 @@
-import { createGoogle } from "@ai-sdk/google";
+import { google } from "@ai-sdk/google";
 import { parseGenerateVariablesOptions } from "@typebot.io/ai/parseGenerateVariablesOptions";
 import { runGenerateVariables } from "@typebot.io/ai/runGenerateVariables";
 import { createAction } from "@typebot.io/forge";
@@ -33,9 +33,9 @@ export const generateVariables = createAction({
       items: geminiModels,
     },
     getModel: ({ credentials, model }) =>
-      createGoogle({
+      google(model, {
         apiKey: credentials.apiKey,
-      })(model),
+      }),
   },
   getSetVariableIds: (options) =>
     options.variablesToExtract?.map((v) => v.variableId).filter(isDefined) ??
@@ -48,9 +48,9 @@ export const generateVariables = createAction({
       if (options.model === undefined) return logs.add("No model provided");
 
       return runGenerateVariables({
-        model: createGoogle({
+        model: google(options.model, {
           apiKey: credentials.apiKey,
-        })(options.model),
+        }),
         prompt: options.prompt,
         variablesToExtract: options.variablesToExtract,
         variables,
