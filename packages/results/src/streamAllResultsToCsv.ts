@@ -38,6 +38,7 @@ export const streamAllResultsToCsv = async (
 > => {
   if (!writeStreamPath && !writableStream)
     return { status: "error", message: "No stream provided" };
+
   const typebot = await prisma.typebot.findUnique({
     where: {
       id: typebotId,
@@ -47,23 +48,26 @@ export const streamAllResultsToCsv = async (
       groups: true,
       variables: true,
       resultsTablePreferences: true,
-      _count: {
-        select: {
-          results: {
-            where: {
-              hasStarted: true,
-              isArchived: false,
-            },
-          },
-        },
-      },
     },
   });
 
-  if (!typebot) return { status: "error", message: "Typebot not found" };
+  const totalResultsToExport = await prisma.result.count({
+    where: {
+      typebotId,
+      hasStarted: true,
+      isArchived: false,
+    },
+  });
 
-  if (Number(typebot.version) < 6)
+  if (!typebot) {
+    writableStream?.end();
+    return { status: "error", message: "Typebot not found" };
+  }
+
+  if (Number(typebot.version) < 6) {
+    writableStream?.end();
     return { status: "error", message: "Typebot is not at least v6" };
+  }
 
   const groups = parseGroups(typebot.groups, {
     typebotVersion: typebot.version,
@@ -119,7 +123,7 @@ export const streamAllResultsToCsv = async (
       const processedIds = new Set<string>();
       let processedCount = 0;
 
-      while (processedCount < typebot._count.results) {
+      while (processedCount < totalResultsToExport) {
         const rawBatch = z.array(resultWithAnswersSchema).parse(
           (
             await prisma.result.findMany({
@@ -181,9 +185,8 @@ export const streamAllResultsToCsv = async (
 
         lastCreatedAt = batch[batch.length - 1].createdAt;
         processedCount += batch.length;
-        console.log("processedCount", processedCount, typebot._count.results);
         onProgressUpdate(
-          Math.round((processedCount / typebot._count.results) * 100),
+          Math.round((processedCount / totalResultsToExport) * 100),
         );
       }
 
